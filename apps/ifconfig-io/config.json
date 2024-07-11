@@ -1,5 +1,5 @@
 {
-    "name": "ifconfig.io",
+    "name": "ifconfig-io",
     "id": "ifconfig-io",
     "available": true,
     "short_desc": "Inspired by ifconfig.me, but designed for pure speed. A single server can do 18,000 requests per seconds while only consuming 50megs of ram.",
