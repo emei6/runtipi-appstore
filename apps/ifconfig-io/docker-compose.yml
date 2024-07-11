@@ -1,7 +1,7 @@
 version: "3.9"
 services:
-  ifconfig.io:
-    container_name: ifconfig.io
+  ifconfig-io:
+    container_name: ifconfig-io
     image: georgyo/ifconfig.io
     restart: unless-stopped
     environment:
@@ -10,29 +10,29 @@ services:
       - ${APP_PORT}:8080
     networks:
       - tipi_main_network
-    labels: # Use your editors search and replace feature to replace all instances of "ifconfig.io" with your app name in the traefik labels
+    labels:
       # Main
       traefik.enable: true
-      traefik.http.middlewares.ifconfig.io-web-redirect.redirectscheme.scheme: https
-      traefik.http.services.ifconfig.io.loadbalancer.server.port: 8080 # Should be the same as the app internal port so for this example 8080
+      traefik.http.middlewares.ifconfig-io-web-redirect.redirectscheme.scheme: https
+      traefik.http.services.ifconfig-io.loadbalancer.server.port: 8080
       # Web
-      traefik.http.routers.ifconfig.io-insecure.rule: Host(`${APP_DOMAIN}`)
-      traefik.http.routers.ifconfig.io-insecure.entrypoints: web
-      traefik.http.routers.ifconfig.io-insecure.service: ifconfig.io
-      traefik.http.routers.ifconfig.io-insecure.middlewares: ifconfig.io-web-redirect
+      traefik.http.routers.ifconfig-io-insecure.rule: Host(`${APP_DOMAIN}`)
+      traefik.http.routers.ifconfig-io-insecure.entrypoints: web
+      traefik.http.routers.ifconfig-io-insecure.service: ifconfig-io
+      traefik.http.routers.ifconfig-io-insecure.middlewares: ifconfig-io-web-redirect
       # Websecure
-      traefik.http.routers.ifconfig.io.rule: Host(`${APP_DOMAIN}`)
-      traefik.http.routers.ifconfig.io.entrypoints: websecure
-      traefik.http.routers.ifconfig.io.service: ifconfig.io
-      traefik.http.routers.ifconfig.io.tls.certresolver: myresolver
+      traefik.http.routers.ifconfig-io.rule: Host(`${APP_DOMAIN}`)
+      traefik.http.routers.ifconfig-io.entrypoints: websecure
+      traefik.http.routers.ifconfig-io.service: ifconfig-io
+      traefik.http.routers.ifconfig-io.tls.certresolver: myresolver
       # Local domain
-      traefik.http.routers.ifconfig.io-local-insecure.rule: Host(`ifconfig.io.${LOCAL_DOMAIN}`)
-      traefik.http.routers.ifconfig.io-local-insecure.entrypoints: web
-      traefik.http.routers.ifconfig.io-local-insecure.service: ifconfig.io
-      traefik.http.routers.ifconfig.io-local-insecure.middlewares: ifconfig.io-web-redirect
+      traefik.http.routers.ifconfig-io-local-insecure.rule: Host(`ifconfig-io.${LOCAL_DOMAIN}`)
+      traefik.http.routers.ifconfig-io-local-insecure.entrypoints: web
+      traefik.http.routers.ifconfig-io-local-insecure.service: ifconfig-io
+      traefik.http.routers.ifconfig-io-local-insecure.middlewares: ifconfig-io-web-redirect
       # Local domain secure
-      traefik.http.routers.ifconfig.io-local.rule: Host(`ifconfig.io.${LOCAL_DOMAIN}`)
-      traefik.http.routers.ifconfig.io-local.entrypoints: websecure
-      traefik.http.routers.ifconfig.io-local.service: ifconfig.io
-      traefik.http.routers.ifconfig.io-local.tls: true
+      traefik.http.routers.ifconfig-io-local.rule: Host(`ifconfig-io.${LOCAL_DOMAIN}`)
+      traefik.http.routers.ifconfig-io-local.entrypoints: websecure
+      traefik.http.routers.ifconfig-io-local.service: ifconfig-io
+      traefik.http.routers.ifconfig-io-local.tls: true
       runtipi.managed: true
